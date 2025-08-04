@@ -1,0 +1,72 @@
+:root{
+  --bg:#0f1221; --fg:#e8ebff; --muted:#a7b0d8; --card:#171a2e; --accent:#7aa2ff;
+  --border:#252948; --header:#0b0e1c;
+}
+
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg); color: var(--fg); line-height:1.5;
+}
+
+a{ color:var(--accent); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+
+header, footer{ background: var(--header); }
+header{ padding:16px 20px; border-bottom:1px solid #22253a; }
+header h1{ margin:0; font-size:18px; letter-spacing:.5px; }
+
+main{ max-width:960px; margin:24px auto; padding:0 16px; }
+
+.card{
+  background: var(--card); border:1px solid var(--border);
+  border-radius:12px; padding:16px;
+}
+
+.muted{ color:var(--muted); }
+
+.row{ display:flex; gap:12px; flex-wrap:wrap; }
+
+.btn{
+  display:inline-block; padding:8px 12px; border-radius:8px;
+  border:1px solid var(--border); background:#10142a; color:var(--fg);
+  cursor:pointer;
+}
+.btn:hover{ background:#0d1124; }
+
+input, select{
+  background:#0d1022; color:var(--fg);
+  border:1px solid var(--border); border-radius:8px; padding:8px 10px;
+}
+
+.grid{ display:grid; gap:12px; }
+.list{ list-style:none; padding:0; margin:0; }
+
+pre{ white-space:pre-wrap; word-wrap:break-word; }
+
+.kicker{
+  font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
+}
+
+/* Kleine Helfer für RTL-Block (Arabisch) */
+pre[dir="rtl"]{
+  direction: rtl;
+  text-align: right;
+  font-size:1.05rem;
+}
+
+/* Responsive Feinschliff */
+@media (max-width:640px){
+  header h1{ font-size:16px; }
+  .row{ gap:8px; }
+}
+
+/* Optional: prefers-color-scheme respektieren (falls du später Light Mode willst) */
+/*
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#f6f7ff; --fg:#10122a; --muted:#5a6189; --card:#fff; --accent:#1f4cff; --border:#e1e6ff; --header:#eef1ff;
+  }
+}
+*/

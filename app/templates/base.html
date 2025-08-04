@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Hadith Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+<header>
+  <h1>Hadith Analyzer</h1>
+</header>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer>
+  <span>Made with ⚒️ & Qurʾān/Hadith-Liebe • {{ config.get("ENV","prod") }}</span>
+</footer>
+</body>
+</html>

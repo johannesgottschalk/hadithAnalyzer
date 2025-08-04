@@ -1,0 +1,9 @@
+Flask
+gunicorn
+jinja2
+pandas
+pyarrow
+numpy
+scikit-learn
+python-Levenshtein
+networkx

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+{% if item %}
+  <div class="card grid">
+    <div class="kicker">{{ item.collection }} • vol {{ item.volume }} • <a href="{{ item.url }}" target="_blank" rel="noopener">source</a></div>
+    <h2 style="margin:0">{{ item.id }}</h2>
+    {% if item.reference %}<div class="muted">{{ item.reference }}</div>{% endif %}
+    {% if item.grade %}<div class="muted">Grade: {{ item.grade }}</div>{% endif %}
+
+    {% if item.arabic %}
+      <div>
+        <div class="kicker">Arabic</div>
+        <pre dir="rtl" style="font-size:1.05rem">{{ item.arabic }}</pre>
+      </div>
+    {% endif %}
+
+    {% if item.english %}
+      <div>
+        <div class="kicker">English</div>
+        <pre>{{ item.english }}</pre>
+      </div>
+    {% endif %}
+
+    <div class="row">
+      <a class="btn" href="{{ url_for('main.hadith_detail', hid=item.id, similar=10) }}">Show 10 similar</a>
+      <a class="btn" href="{{ url_for('main.index', q=item.id) }}">Back to search</a>
+    </div>
+  </div>
+
+  {% if similars %}
+    <h3 style="margin-top:24px">Similar</h3>
+    <ul class="list">
+      {% for s in similars %}
+        <li class="card" style="margin-bottom:12px">
+          <div class="kicker">{{ s.collection }} • vol {{ s.volume }} • score {{ '%.3f'|format(s._similarity) }}</div>
+          <a href="{{ url_for('main.hadith_detail', hid=s.id) }}"><strong>{{ s.id }}</strong></a>
+          {% if s.english %}
+            <div class="muted" style="margin-top:6px">{{ s.english[:220] }}{% if s.english|length > 220 %}…{% endif %}</div>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% else %}
+  <div class="card">Not found.</div>
+{% endif %}
+{% endblock %}

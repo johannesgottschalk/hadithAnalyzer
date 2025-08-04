@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card grid">
+  <div class="kicker">Search</div>
+  <form method="get" class="row" action="{{ url_for('main.index') }}">
+    <input type="text" name="q" placeholder="Search Arabic or English…" value="{{ q or '' }}" style="flex:1;min-width:240px">
+    <select name="lang">
+      <option value="both"   {{ 'selected' if (lang=='both')   else '' }}>Arabic + English</option>
+      <option value="arabic" {{ 'selected' if (lang=='arabic') else '' }}>Arabic only</option>
+      <option value="english"{{ 'selected' if (lang=='english')else '' }}>English only</option>
+    </select>
+    <input type="number" name="limit" value="{{ limit or 50 }}" min="1" max="1000" style="width:90px">
+    <button class="btn" type="submit">Search</button>
+  </form>
+  {% if q %}
+    <div class="muted">Results for <strong>{{ q }}</strong> • total (client-limited): {{ total }}</div>
+  {% endif %}
+</div>
+
+{% if results %}
+  <ul class="list" style="margin-top:16px">
+    {% for r in results %}
+      <li class="card" style="margin-bottom:12px">
+        <div class="kicker">{{ r.collection }} • vol {{ r.volume }} • <a href="{{ r.url }}" target="_blank" rel="noopener">source</a></div>
+        <div style="margin:8px 0">
+          <a href="{{ url_for('main.hadith_detail', hid=r.id) }}"><strong>{{ r.id }}</strong></a>
+        </div>
+        {% if r.english %}
+          <div class="muted">{{ r.english[:220] }}{% if r.english|length > 220 %}…{% endif %}</div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% elif q %}
+  <div class="card">No results.</div>
+{% else %}
+  <div class="card muted">Tip: try searching for <code>mercy</code> or an Arabic root.</div>
+{% endif %}
+{% endblock %}
